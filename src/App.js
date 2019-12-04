@@ -17,7 +17,7 @@ import {
  * Redux utility
  */
 import { Provider } from 'react-redux'
-import store from './Utils/Redux/store'
+import store from './Utils/redux/store'
 
 /**
  * Screens
@@ -26,28 +26,29 @@ import Landing from './Screens/Landing'
 import Login from './Screens/Login'
 import Register from './Screens/Register'
 
-
 class App extends Component {
 
   render () {
     return (
-      <Router>
-        <Switch>
-          <Route
-            path='/login'
-            component={Login}
-          />
-          <Route
-            path='/signup'
-            component={Register}
-          />
-          <Route
-            exact
-            path='/'
-            component={Landing}
-          />
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Switch>
+            <Route
+              path='/login'
+              component={Login}
+            />
+            <Route
+              path='/signup'
+              component={Register}
+            />
+            <Route
+              exact
+              path='/'
+              component={Landing}
+            />
+          </Switch>
+        </Router>
+      </Provider>
     );
   }
 }

@@ -7,7 +7,30 @@
 
 import React, { Component } from 'react'
 
+/**
+ * Redux Actions
+ */
+import { connect } from 'react-redux'
+//import { getUsers } from '../Utils/redux/actions/users'
+const catchStateActionRedux = stateAction => {
+  return {
+    data: stateAction
+  }
+}
+
 class Landing extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      data: []
+    }
+  }
+
+  componentDidMount () {
+
+  }
+
   render () {
     return (
       <div>
@@ -17,4 +40,4 @@ class Landing extends Component {
   }
 }
 
-export default Landing
+export default connect(catchStateActionRedux)(Landing)

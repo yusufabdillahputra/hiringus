@@ -8,7 +8,7 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { post } from '../Utils/axios'
+import { get, post } from '../Utils/axios'
 
 /**
  * Image
@@ -21,33 +21,57 @@ import logoTransaprant from '../Assets/Image/Logo/logo_transparant.png'
  */
 import LoginWrapper from '../Global/Login/LoginWrapper'
 import BootstrapAlert from '../Global/Alerts/BootstrapAlert'
+import JWT from 'jsonwebtoken'
 
 const styleCss = {
-  background : {
+  background: {
     backgroundImage: `url(${bgLoginInverse})`
   },
-  headerTitle : {
+  headerTitle: {
     fontSize: 20,
     fontWeight: 'bold'
   },
-  subTitle : {
+  subTitle: {
     lineHeight: 1.5
   }
 }
 
 class Register extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
-    this.state = {
-      isRegister : false,
-      alert : false,
-      alertTitle : null,
-      alertColor : null,
-      alertMessage : null,
+    const jwt = localStorage.getItem('jwt')
+    if (jwt !== null) {
+      const decode = JWT.decode(jwt, {complete: true})
+      this.checkLogin(jwt, decode)
     }
 
+    this.state = {
+      isAuth: false,
+      isRegister: false,
+      alert: false,
+      alertTitle: null,
+      alertColor: null,
+      alertMessage: null,
+    }
+
+  }
+
+  async checkLogin (jwt, decode) {
+    const idUsers = decode.payload.id_users
+    const apiUsersToken = await get(`/users/id/${idUsers}`)
+    const apiToken = apiUsersToken.data.payload.rows[0].remember_token
+    if (jwt === apiToken) {
+      this.setState({
+        isAuth: true
+      })
+    }
+    if (jwt !== apiToken) {
+      this.setState({
+        isAuth: false
+      })
+    }
   }
 
   initialValues = {
@@ -62,21 +86,26 @@ class Register extends Component {
     const errors = {};
     if (!values.name_users) {
       errors.name_users = 'Name cannot be empty'
-    } if (!values.username_users) {
+    }
+    if (!values.username_users) {
       errors.username_users = 'Username cannot be empty'
-    } if (!values.password_users) {
+    }
+    if (!values.password_users) {
       errors.password_users = 'Password cannot be empty'
-    } if (!values.email_users) {
+    }
+    if (!values.email_users) {
       errors.email_users = 'Email cannot be empty'
-    } if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email_users)) {
+    }
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email_users)) {
       errors.email_users = 'Invalid format email'
-    } if (!values.role_users) {
+    }
+    if (!values.role_users) {
       errors.role_users = 'Role cannot be empty'
     }
     return errors;
   }
 
-  onSubmitHandler = async (values, { setSubmitting  }) => {
+  onSubmitHandler = async (values, {setSubmitting}) => {
     const responseApi = await post('/auth/register', values)
     this.isNotUnique(responseApi)
     setSubmitting(false)
@@ -92,34 +121,34 @@ class Register extends Component {
     const serverUniqueCode = "23505"
     if (responseApi.data.payload.code === serverUniqueCode) {
       this.setState({
-        alert : true,
-        alertTitle : 'Unique !',
-        alertColor : 'danger',
-        alertMessage : 'Username or email already taken',
+        alert: true,
+        alertTitle: 'Unique !',
+        alertColor: 'danger',
+        alertMessage: 'Username or email already taken',
       })
       setTimeout(() => {
         this.setState({
-          alert : false,
-          alertTitle : null,
-          alertColor : null,
-          alertMessage : null,
+          alert: false,
+          alertTitle: null,
+          alertColor: null,
+          alertMessage: null,
         })
       }, 4000)
     }
     if (responseApi.data.payload.code !== serverUniqueCode) {
       this.setState({
-        alert : true,
-        alertTitle : 'Success',
-        alertColor : 'success',
-        alertMessage : 'Your account has been created, please wait for auto redirect in 4 seconds, if not redirect feel free to click "Back to login"',
+        alert: true,
+        alertTitle: 'Success',
+        alertColor: 'success',
+        alertMessage: 'Your account has been created, please wait for auto redirect in 4 seconds, if not redirect feel free to click "Back to login"',
       })
       setTimeout(() => {
         this.setState({
           isSuccess: true,
-          alert : false,
-          alertTitle : null,
-          alertColor : null,
-          alertMessage : null,
+          alert: false,
+          alertTitle: null,
+          alertColor: null,
+          alertMessage: null,
         })
       }, 4000)
     }
@@ -128,10 +157,13 @@ class Register extends Component {
   render () {
     if (this.state.isSuccess) {
       return (
-        <Redirect push to={'/login'} />
+        <Redirect push to={'/login'}/>
       )
-    }
-    else {
+    } if (this.state.isAuth) {
+      return (
+        <Redirect push to={'/'}/>
+      )
+    } else {
       return (
         <LoginWrapper>
           <main id='main-container'>
@@ -150,7 +182,7 @@ class Register extends Component {
                             <div className='block block-themed block-rounded block-shadow animated fadeIn'>
                               <div className='block-header-default border-bottom bg-primary text-center'>
                                 <Link to='/'>
-                                  <img className='img-fluid mt-3 mb-3' width={150} src={logoTransaprant} alt='Logo' />
+                                  <img className='img-fluid mt-3 mb-3' width={150} src={logoTransaprant} alt='Logo'/>
                                 </Link>
                               </div>
                               <div className='block-content border-bottom'>
@@ -190,7 +222,8 @@ class Register extends Component {
                                       />
                                       <label className="custom-control-label" htmlFor="role_partner">Partner</label>
                                     </div>
-                                    <ErrorMessage name="role_users" className='animated fadeInDown text-danger mt-1' component="div" />
+                                    <ErrorMessage name="role_users" className='animated fadeInDown text-danger mt-1'
+                                                  component="div"/>
                                   </div>
                                 </div>
                                 <div className="form-group row">
@@ -202,7 +235,8 @@ class Register extends Component {
                                       name='name_users'
                                       placeholder='Enter name...'
                                     />
-                                    <ErrorMessage name="name_users" className='animated fadeInDown text-danger mt-1' component="div" />
+                                    <ErrorMessage name="name_users" className='animated fadeInDown text-danger mt-1'
+                                                  component="div"/>
                                   </div>
                                 </div>
                                 <div className="form-group row">
@@ -214,7 +248,8 @@ class Register extends Component {
                                       name='username_users'
                                       placeholder='Enter username...'
                                     />
-                                    <ErrorMessage name="username_users" className='animated fadeInDown text-danger mt-1' component="div" />
+                                    <ErrorMessage name="username_users" className='animated fadeInDown text-danger mt-1'
+                                                  component="div"/>
                                   </div>
                                 </div>
                                 <div className="form-group row">
@@ -226,7 +261,8 @@ class Register extends Component {
                                       name='password_users'
                                       placeholder='Enter password...'
                                     />
-                                    <ErrorMessage name="password_users" className='animated fadeInDown text-danger mt-1' component="div" />
+                                    <ErrorMessage name="password_users" className='animated fadeInDown text-danger mt-1'
+                                                  component="div"/>
                                   </div>
                                 </div>
                                 <div className="form-group row">
@@ -238,7 +274,8 @@ class Register extends Component {
                                       name='email_users'
                                       placeholder='Enter email...'
                                     />
-                                    <ErrorMessage name="email_users" className='animated fadeInDown text-danger mt-1' component="div" />
+                                    <ErrorMessage name="email_users" className='animated fadeInDown text-danger mt-1'
+                                                  component="div"/>
                                   </div>
                                 </div>
                               </div>
