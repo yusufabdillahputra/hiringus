@@ -6,15 +6,15 @@
  */
 
 import React, { Component } from 'react'
-import IMGReact from '../../../assets/image/app/footer/react.png'
-import IMGRedux from '../../../assets/image/app/footer/redux.png'
-import IMGBootstrap from '../../../assets/image/app/footer/bootstrap.png'
+import IMGReact from '../../Assets/Image/Footer/react.png'
+import IMGRedux from '../../Assets/Image/Footer/redux.png'
+import IMGBootstrap from '../../Assets/Image/Footer/bootstrap.png'
 
 class AppFooter extends Component {
   render () {
     return (
       <footer id='page-footer'>
-        <div className='block bg-gd-emerald text-white' style={{ marginBottom: 0 }}>
+        <div className='block bg-primary text-white' style={{ marginBottom: 0 }}>
           <div className='block-content'>
             <div className='content py-20'>
               <div className='row'>

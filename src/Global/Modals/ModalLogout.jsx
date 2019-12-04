@@ -13,15 +13,15 @@ class ModalLogout extends Component {
     super(props)
 
     this.state = {
-      logout : false
+      isLogout : false
     }
   }
 
   setLocalStorage = (e) => {
     this.setState({
-      logout: true
+      isLogout: true
     })
-    this.props.returnStateLogout(this.state.logout)
+    this.props.returnStateLogout(this.state.isLogout)
     localStorage.clear()
   }
 

@@ -108,7 +108,7 @@ class Login extends Component {
         alert : true,
         alertTitle : 'Unauthorized',
         alertColor : 'danger',
-        alertMessage : 'Username or email is wrong',
+        alertMessage : 'Username or password is wrong',
       })
       setTimeout(() => {
         this.setState({

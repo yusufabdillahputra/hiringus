@@ -11,6 +11,7 @@ import React, { Component } from 'react'
  * Redux Actions
  */
 import { connect } from 'react-redux'
+import AppWrapper from '../Global/App/AppWrapper'
 //import { getUsers } from '../Utils/redux/actions/users'
 const catchStateActionRedux = stateAction => {
   return {
@@ -33,9 +34,9 @@ class Landing extends Component {
 
   render () {
     return (
-      <div>
-
-      </div>
+      <AppWrapper>
+        Landing
+      </AppWrapper>
     )
   }
 }

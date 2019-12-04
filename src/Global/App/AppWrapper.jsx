@@ -8,27 +8,30 @@
 import React, { Component } from 'react'
 import AppHeader from './AppHeader'
 import AppFooter from './AppFooter'
-import AppSidebar from './AppSidebar'
-import ModalLogout from '../modal/ModalLogout'
+import ModalLogout from '../Modals/ModalLogout'
 
 class AppWrapper extends Component {
 
-  state = {
-    logout : null
+  constructor(props){
+    super(props)
+
+    this.state = {
+      isLogout : null
+    }
+
   }
 
   stateModalLogout = (state) => {
     this.setState({
-      logout: state
+      isLogout: state
     })
   }
 
   render () {
     return (
       <div id='page-container' className='sidebar-inverse side-scroll page-header-fixed page-header-inverse main-content-boxed'>
-        <AppSidebar />
         <AppHeader
-          statusLogout={this.state.logout}
+          statusLogout={this.state.isLogout}
         />
         <main id='main-container'>
           {this.props.children}

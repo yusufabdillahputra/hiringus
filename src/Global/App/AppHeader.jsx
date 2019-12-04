@@ -9,11 +9,11 @@ import React, { Component } from 'react'
 import JWT from 'jsonwebtoken'
 import { Link } from 'react-router-dom'
 
-import ImageLogo from '../../../assets/image/app/logo.png'
+import ImageLogo from '../../Assets/Image/Logo/logo_transparant.png'
 
-import { axiosGet } from '../../../helper/axios'
-import ButtonIsAuth from '../header/ButtonIsAuth'
-import ButtonLogin from '../header/ButtonLogin'
+import { get } from '../../Utils/axios'
+import ButtonIsAuth from './Header/ButtonIsAuth'
+import ButtonLogin from './Header/ButtonLogin'
 
 class AppHeader extends Component {
   constructor (props) {
@@ -49,14 +49,16 @@ class AppHeader extends Component {
   }
 
   async getUsers (decode) {
-    const getUsers = await axiosGet(`/auth/token/${decode.payload.id_users}`)
-    if (this.state.jwt === getUsers.data.result.remember_token) {
+    const idUsers = decode.payload.id_users
+    const apiUsersToken = await get(`/users/id/${idUsers}`)
+    const apiToken = apiUsersToken.data.payload.rows[0].remember_token
+    if (this.state.jwt === apiToken) {
       this.setState({
         name_users: decode.payload.name_users,
         auth: true
       })
     }
-    if (this.state.jwt !== getUsers.data.result.remember_token) {
+    if (this.state.jwt !== apiToken) {
       this.setState({
         auth: false
       })
@@ -65,14 +67,12 @@ class AppHeader extends Component {
 
   render () {
     return (
-      <header id='page-header' className='bg-gd-lake'>
+      <header id='page-header' className='bg-primary'>
         <div className='content-header'>
           <div className='content-header-section'>
             <div className='content-header-item'>
-              <Link className='link-effect font-w700' to='/'>
-                <img className='mr-4' alt='Logo' width={51} src={ImageLogo}/>
-                <span className='font-size-xl text-dual-primary-dark'>Hiring</span>
-                <span className='font-size-xl text-dual-primary-dark'>Us</span>
+              <Link to='/'>
+                <img alt='Logo' width={150} src={ImageLogo} />
               </Link>
             </div>
           </div>
