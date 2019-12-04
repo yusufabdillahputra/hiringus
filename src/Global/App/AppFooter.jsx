@@ -14,7 +14,7 @@ class AppFooter extends Component {
   render () {
     return (
       <footer id='page-footer'>
-        <div className='block bg-primary-dark text-white' style={{ marginBottom: 0 }}>
+        <div className='block bg-primary-darker text-white' style={{ marginBottom: 0 }}>
           <div className='block-content'>
             <div className='content py-20'>
               <div className='row'>

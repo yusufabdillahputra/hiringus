@@ -10,17 +10,17 @@ import React, { Component } from 'react'
 class Category extends Component {
   render () {
     return (
-      <div>
+      <div className='bg-primary-light'>
         <div className='container'>
           <div className='row'>
             <div className='col-md-6'>
               <div className='row'>
                 <div className='col-12 text-center'>
-                  <img className='img-fluid' width={250} src={this.props.image} alt='Category' />
+                  <img className='img-fluid mt-4' width={350} src={this.props.image} alt='Category' />
                 </div>
               </div>
             </div>
-            <div className='col-md-6' style={{ marginTop: 10 }}>
+            <div className='col-md-6 mt-4'>
               <div className='block block-rounded'>
                 <div className='block block-header border-bottom'>
                   <h1 className='block-title'>

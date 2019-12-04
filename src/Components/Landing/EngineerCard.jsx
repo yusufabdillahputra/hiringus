@@ -24,41 +24,18 @@ class EngineerCard extends Component {
               />
             </Link>
           </div>
-          <div className="block-content bg-gd-sea">
+          <div className="block-content bg-primary">
             <h4 className="font-size-h5 mb-10 text-white">{this.props.name}</h4>
             <p className="text-white">
               {this.props.position}
             </p>
           </div>
-          <div className="block-content bg-primary">
-            <div className='row'>
-              <div className='col-12'>
-                <p className='text-white'>
-                  <i className="fa fa-fw fa-product-hunt mr-5"></i> Project <b>{this.props.project}</b>
-                </p>
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-12'>
-                <p className='text-white'>
-                  <i className="fa fa-star text-warning mr-5"></i> Success Rate <b>{this.props.successRate}%</b>
-                </p>
-              </div>
-            </div>
-          </div>
           <div className="block-content bg-primary-dark">
-            <div className="row">
-              <div className="col-12">
+            <div className='row'>
+              <div className='col-12'>
                 <p className='text-white'>
-                  <i className="fa fa-fw fa-area-chart mr-5"></i> Skill
+                  <i className="fa fa-fw fa-product-hunt mr-5"></i> Project <b></b>
                 </p>
-                <ul>
-                  {this.props.skills.map((skill, index) => {
-                    return (
-                      <li className='text-white' key={index}>{skill}</li>
-                    )
-                  })}
-                </ul>
               </div>
             </div>
           </div>

@@ -1,23 +1,23 @@
 const initialState = {
-  users: [],
+  state: [],
   isPending: false,
   isRejected: false,
   isFulfilled: false,
 }
 
-const users = (state = initialState, action) => {
+const readAllSkillEngineer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_USERS_PENDING':
+    case 'READ_ALL_SKILL_ENGINEER_PENDING':
       return {
         ...state,
         isPending: true
       }
-    case 'GET_USERS_REJECTED':
+    case 'READ_ALL_SKILL_ENGINEER_REJECTED':
       return {
         ...state,
         isRejected: true
       }
-    case 'GET_USERS_FULFILLED':
+    case 'READ_ALL_SKILL_ENGINEER_FULFILLED':
       return {
         ...state,
         isFulfilled: true,
@@ -28,4 +28,4 @@ const users = (state = initialState, action) => {
   }
 }
 
-export default users
+export default readAllSkillEngineer
