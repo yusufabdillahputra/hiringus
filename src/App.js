@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/**
+ * Date : 25/11/2019
+ * Time : 19:16
+ * @author Yusuf Abdillah Putra <yusufabdillahputra@gmail.com>
+ * @license ISC
+ */
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+import React, { Component } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom'
+
+/**
+ * Redux utility
+ */
+import { Provider } from 'react-redux'
+import store from './Utils/Redux/store'
+
+/**
+ * Screens
+ */
+import Landing from './Screens/Landing'
+import Login from './Screens/Login'
+import Register from './Screens/Register'
+
+
+class App extends Component {
+
+  render () {
+    return (
+      <Router>
+        <Switch>
+          <Route
+            path='/login'
+            component={Login}
+          />
+          <Route
+            path='/signup'
+            component={Register}
+          />
+          <Route
+            exact
+            path='/'
+            component={Landing}
+          />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;
