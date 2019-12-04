@@ -8,6 +8,19 @@
 import React, { Component } from 'react'
 
 /**
+ * Image
+ */
+import ImageBG from '../Assets/Image/Background/bg_hero.jpg'
+import ImageCategory from '../Assets/Image/Landing/category/category.png'
+
+/**
+ * Components
+ */
+import Hero from '../Components/Landing/Hero'
+import Category from '../Components/Landing/Category'
+import Engineer from '../Components/Landing/Engineer'
+
+/**
  * Redux Actions
  */
 import { connect } from 'react-redux'
@@ -17,6 +30,10 @@ const catchStateActionRedux = stateAction => {
   return {
     data: stateAction
   }
+}
+
+const styleCss = {
+  backgroundImage: `url(${ImageBG})`
 }
 
 class Landing extends Component {
@@ -35,7 +52,16 @@ class Landing extends Component {
   render () {
     return (
       <AppWrapper>
-        Landing
+        <Hero
+          styleCss={styleCss}
+          icon='fa-smile-o'
+          title='Come On'
+          subTitle='Join and hire highly capable engineer for your project'
+        />
+        <Category
+          image={ImageCategory}
+        />
+        <Engineer />
       </AppWrapper>
     )
   }
