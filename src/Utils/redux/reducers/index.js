@@ -1,13 +1,9 @@
 import { combineReducers } from 'redux'
 
-import Users_readAllEngineer from './users/readAllEngineer'
-import Project_readAllProjectEngineer from './project/readAllProjectEngineer'
-import Skill_readAllSkillEngineer from './skill/readAllSkillEngineer'
+import Users_readAllProjectSkillEngineer from './users/readAllProjectSkillEngineer'
 
 export default combineReducers({
-  Users_readAllEngineer,
-  Project_readAllProjectEngineer,
-  Skill_readAllSkillEngineer
+  Users_readAllProjectSkillEngineer
 })
 
 

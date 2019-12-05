@@ -5,19 +5,19 @@ const initialState = {
   isFulfilled: false,
 }
 
-const readAllSkillEngineer = (state = initialState, action) => {
+const readAllProjectSkillEngineer = (state = initialState, action) => {
   switch (action.type) {
-    case 'READ_ALL_SKILL_ENGINEER_PENDING':
+    case 'READ_MERGE_ALL_ENGINEER_PENDING':
       return {
         ...state,
         isPending: true
       }
-    case 'READ_ALL_SKILL_ENGINEER_REJECTED':
+    case 'READ_MERGE_ALL_ENGINEER_REJECTED':
       return {
         ...state,
         isRejected: true
       }
-    case 'READ_ALL_SKILL_ENGINEER_FULFILLED':
+    case 'READ_MERGE_ALL_ENGINEER_FULFILLED':
       return {
         ...state,
         isFulfilled: true,
@@ -28,4 +28,4 @@ const readAllSkillEngineer = (state = initialState, action) => {
   }
 }
 
-export default readAllSkillEngineer
+export default readAllProjectSkillEngineer

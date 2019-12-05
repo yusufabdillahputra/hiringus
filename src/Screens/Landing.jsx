@@ -24,10 +24,13 @@ import Engineer from '../Components/Landing/Engineer'
  * Redux Actions
  */
 import { connect } from 'react-redux'
+import { readAllProjectSkillEngineer } from '../Utils/redux/actions/users/readAllProjectSkillEngineer'
+
+/**
+ * Globals
+ */
 import AppWrapper from '../Global/App/AppWrapper'
-import { readAllEngineer } from '../Utils/redux/actions/users/readAllEngineer'
-import { readAllProjectEngineer } from '../Utils/redux/actions/project/readAllProjectEngineer'
-import { readAllSkillEngineer } from '../Utils/redux/actions/skill/readAllSkillEngineer'
+import LoadingPage from '../Global/Template/LoadingPage'
 
 const catchStateActionRedux = stateAction => {
   return {
@@ -36,7 +39,9 @@ const catchStateActionRedux = stateAction => {
 }
 
 const styleCss = {
-  backgroundImage: `url(${ImageBG})`
+  hero: {
+    backgroundImage: `url(${ImageBG})`,
+  }
 }
 
 class Landing extends Component {
@@ -44,40 +49,20 @@ class Landing extends Component {
     super(props);
 
     this.state = {
-      propsEngineer: [],
-      propsProject: [],
-      propsSkill: []
+      propsEngineer: []
     }
   }
 
-  componentDidMount () {
-    this.setContentEngineer()
-    this.setContentProject()
-    this.setContentSkill()
-  }
-
-  async setContentEngineer () {
-    const engineer = await this.props.dispatch(readAllEngineer())
-    const rowsEngineer = engineer.value.data.payload.rows
-    this.setState({
-      propsEngineer: rowsEngineer
+  async componentDidMount () {
+    const propsEngineer = await this.setPropsEngineer()
+    await this.setState({
+      propsEngineer: propsEngineer
     })
   }
 
-  async setContentProject () {
-    const projects = await this.props.dispatch(readAllProjectEngineer())
-    const rowsProjects = projects.value.data.payload.rows
-    this.setState({
-      propsProject: rowsProjects
-    })
-  }
-
-  async setContentSkill () {
-    const skills = await this.props.dispatch(readAllSkillEngineer())
-    const rowsSkills = skills.value.data.payload.rows
-    this.setState({
-      propsSkill: rowsSkills
-    })
+  async setPropsEngineer () {
+    const engineer = await this.props.dispatch(readAllProjectSkillEngineer())
+    return engineer.value.data.payload
   }
 
   render () {
@@ -85,7 +70,7 @@ class Landing extends Component {
       return (
         <AppWrapper>
           <Hero
-            styleCss={styleCss}
+            styleCss={styleCss.hero}
             icon='fa-smile-o'
             title='Come On'
             subTitle='Join and hire highly capable engineer for your project'
@@ -95,14 +80,16 @@ class Landing extends Component {
           />
           <Engineer
             engineer={this.state.propsEngineer}
-            project={this.state.propsProject}
-            skill={this.state.propsSkill}
           />
         </AppWrapper>
       )
-    }
-    else {
-      return 'Loading...'
+    } else {
+      return (
+        <LoadingPage
+          icon={'fa-spinner'}
+          message={'Please wait.....'}
+        />
+      )
     }
   }
 }

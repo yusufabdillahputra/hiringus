@@ -6,19 +6,9 @@
  */
 
 import React, { Component } from 'react'
+import LoadingComponent from '../../Global/Template/LoadingComponent'
 
 import EngineerCard from './EngineerCard'
-
-/**
- * Redux Actions
- */
-import { connect } from 'react-redux'
-
-const catchStateActionRedux = stateAction => {
-  return {
-    data: stateAction
-  }
-}
 
 class Engineer extends Component {
 
@@ -26,49 +16,48 @@ class Engineer extends Component {
     super(props)
 
     this.state = {
-      engineer: [],
-      project: [],
-      skill: []
+      isLoading: true,
+      engineer: []
     }
   }
 
-  componentDidMount () {
+  async componentDidMount () {
     this.setState({
-      engineer: this.props.engineer,
-      project: this.props.project,
-      skill: this.props.skill
+      isLoading: false,
+      engineer: this.props.engineer
     })
   }
 
   render () {
-    const contents = this.state.engineer
-    if (contents.length > 0) {
-      console.log(this.state)
-      return (
-        <div className='bg-white'>
-          <div className='container'>
-            <div className='block-content block-content-full'>
-              <div className='row'>
-                {this.state.engineer.map((content, index) => {
-                  console.log(content)
-                  return <EngineerCard
-                    id={content.id_engineer}
-                    name={content.name_users}
-                    image={`http://localhost:3000/engineer/`+content.photo_engineer}
-                    position={content.focus_engineer}
-                    key={index}
+    return (
+      <div className='bg-white'>
+        <div className='container'>
+          <div className='block-content block-content-full'>
+            <div className='row'>
+              {
+                (this.state.isLoading === false)
+                  ? this.state.engineer.map((content, index) => {
+                    return <EngineerCard
+                      id={content.engineer.id_engineer}
+                      name={content.engineer.name_users}
+                      image={content.engineer.photo_engineer}
+                      focus={content.engineer.focus_engineer}
+                      projects={content.projects}
+                      skills={content.skills}
+                      key={index}
+                    />
+                  })
+                  : <LoadingComponent
+                    icon={'fa-spinner'}
+                    message={'Please wait.....'}
                   />
-                })}
-              </div>
+              }
             </div>
           </div>
         </div>
-      )
-    }
-    else {
-      return 'Loading...'
-    }
+      </div>
+    )
   }
 }
 
-export default connect(catchStateActionRedux)(Engineer)
+export default Engineer
