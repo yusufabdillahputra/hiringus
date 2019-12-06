@@ -27,9 +27,6 @@ class ButtonIsAuth extends Component {
           <Link className='dropdown-item' to='/profile'>
             <i className='si si-user mr-5' /> Profile
           </Link>
-          <button data-target='#modalChangePassword' data-toggle='modal' className='dropdown-item'>
-            <i className='fa fa-key' /> Change Password
-          </button>
           <div className='dropdown-divider' />
           <button data-target='#modalLogout' data-toggle='modal' className='dropdown-item'>
             <i className='si si-logout mr-5' /> Logout

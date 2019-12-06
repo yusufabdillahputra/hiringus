@@ -216,11 +216,6 @@ class Login extends Component {
                                       Login
                                     </button>
                                   </div>
-                                  <div className='col-12 mt-3 text-center'>
-                                    <Link className='link-effect text-muted d-inline-block' to='/forget'>
-                                      <i className='si si-exclamation mr-5'/> Forgot Password ?
-                                    </Link>
-                                  </div>
                                 </div>
                               </div>
                             </div>
