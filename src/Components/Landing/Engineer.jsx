@@ -11,7 +11,6 @@ import LoadingComponent from '../../Global/Template/LoadingComponent'
 import EngineerCard from './EngineerCard'
 
 class Engineer extends Component {
-
   constructor (props) {
     super(props)
 
@@ -48,8 +47,8 @@ class Engineer extends Component {
                     />
                   })
                   : <LoadingComponent
-                    icon={'fa-spinner'}
-                    message={'Please wait.....'}
+                    icon='fa-spinner'
+                    message='Please wait.....'
                     sizeIcon={4}
                   />
               }

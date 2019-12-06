@@ -31,6 +31,7 @@ import { readAllProjectSkillEngineer } from '../Utils/redux/actions/users/readAl
  */
 import AppWrapper from '../Global/App/AppWrapper'
 import LoadingPage from '../Global/Template/LoadingPage'
+import LoadingComponent from '../Global/Template/LoadingComponent'
 
 const catchStateActionRedux = stateAction => {
   return {
@@ -40,15 +41,16 @@ const catchStateActionRedux = stateAction => {
 
 const styleCss = {
   hero: {
-    backgroundImage: `url(${ImageBG})`,
+    backgroundImage: `url(${ImageBG})`
   }
 }
 
 class Landing extends Component {
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
+      isLoading: false,
       propsEngineer: []
     }
   }
@@ -60,13 +62,47 @@ class Landing extends Component {
     })
   }
 
-  async setPropsEngineer () {
-    const engineer = await this.props.dispatch(readAllProjectSkillEngineer())
+
+  /**
+   * Get props from redux
+   *
+   * @param prevProps
+   * @param prevState
+   * @returns {Promise<void>}
+   */
+  async componentDidUpdate (prevProps, prevState) {
+    if (prevProps.data.Landing_postCategory.stateArray.fieldValue !== this.props.data.Landing_postCategory.stateArray.fieldValue) {
+      const fieldName = this.props.data.Landing_postCategory.stateArray.fieldName
+      const fieldValue = this.props.data.Landing_postCategory.stateArray.fieldValue
+      const propsEngineer = await this.setPropsEngineer(fieldName, fieldValue)
+      await this.setState({
+        isLoading: true,
+        propsEngineer: propsEngineer
+      })
+    }
+    if (prevState.isLoading !== this.state.isLoading) {
+      await this.setState({
+        isLoading: false,
+      })
+    }
+  }
+
+  async setPropsEngineer (fieldName = null, fieldValue = null) {
+    const engineer = await this.props.dispatch(readAllProjectSkillEngineer(fieldName, fieldValue))
     return engineer.value.data.payload
   }
 
   render () {
-    if (this.state.propsEngineer.length > 0) {
+    if (this.state.isLoading) {
+      return (
+        <LoadingComponent
+          icon='fa-spinner'
+          message='Please wait.....'
+          sizeIcon={4}
+        />
+      )
+    }
+    if (this.state.propsEngineer.length > 0 && this.state.isLoading === false) {
       return (
         <AppWrapper>
           <Hero
@@ -86,8 +122,8 @@ class Landing extends Component {
     } else {
       return (
         <LoadingPage
-          icon={'fa-spinner'}
-          message={'Please wait.....'}
+          icon='fa-spinner'
+          message='Please wait.....'
         />
       )
     }

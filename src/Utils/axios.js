@@ -10,7 +10,7 @@ module.exports = {
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          'jwt': localStorage.getItem('jwt') || null,
+          jwt: localStorage.getItem('jwt') || null,
           'Content-Type': contentType
         },
         responseType: 'json'
@@ -31,7 +31,7 @@ module.exports = {
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          'jwt': localStorage.getItem('jwt') || null,
+          jwt: localStorage.getItem('jwt') || null,
           'Content-Type': contentType
         },
         data: body,
@@ -53,7 +53,7 @@ module.exports = {
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          'jwt': localStorage.getItem('jwt'),
+          jwt: localStorage.getItem('jwt'),
           'Content-Type': contentType
         },
         data: body,
@@ -75,7 +75,7 @@ module.exports = {
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          'jwt': localStorage.getItem('jwt') || null,
+          jwt: localStorage.getItem('jwt') || null,
           'Content-Type': contentType
         },
         data: body,

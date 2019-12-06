@@ -1,31 +1,31 @@
 const initialState = {
-  stateArray: [],
+  stateArray: {},
   isPending: false,
   isRejected: false,
   isFulfilled: false
 }
 
-const readAllProjectSkillEngineer = (state = initialState, action) => {
+const postCategory = (state = initialState, action) => {
   switch (action.type) {
-    case 'READ_MERGE_ALL_ENGINEER_PENDING':
+    case 'POST_CATEGORY_PENDING':
       return {
         ...state,
         isPending: true
       }
-    case 'READ_MERGE_ALL_ENGINEER_REJECTED':
+    case 'POST_CATEGORY_REJECTED':
       return {
         ...state,
         isRejected: true
       }
-    case 'READ_MERGE_ALL_ENGINEER_FULFILLED':
+    case 'POST_CATEGORY':
       return {
         ...state,
         isFulfilled: true,
-        stateArray: action.payload.data.payload
+        stateArray: action.payload
       }
     default:
       return state
   }
 }
 
-export default readAllProjectSkillEngineer
+export default postCategory

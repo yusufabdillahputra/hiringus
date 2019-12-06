@@ -5,7 +5,6 @@
  * @license ISC
  */
 
-
 import React, { Component } from 'react'
 
 import {
@@ -29,7 +28,6 @@ import Register from './Screens/Register'
 import Profile from './Screens/Profile'
 
 class App extends Component {
-
   render () {
     return (
       <Provider store={store}>
@@ -55,8 +53,8 @@ class App extends Component {
           </Switch>
         </Router>
       </Provider>
-    );
+    )
   }
 }
 
-export default App;
+export default App

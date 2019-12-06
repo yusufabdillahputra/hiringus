@@ -9,12 +9,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 class EngineerCard extends Component {
-
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
-      successRate : 0
+      successRate: 0
     }
   }
 
@@ -42,8 +41,8 @@ class EngineerCard extends Component {
       }
     })
     return {
-      result : ((projectDone.length)/projectAccept.length)*100 || 0,
-      projectAll : projects.length,
+      result: ((projectDone.length) / projectAccept.length) * 100 || 0,
+      projectAll: projects.length,
       projectOffer: projectOffer.length,
       projectAccept: projectAccept.length,
       projectDone: projectDone.length
@@ -52,57 +51,57 @@ class EngineerCard extends Component {
 
   render () {
     return (
-      <div className="col-md-4 animated fadeIn" data-toggle="appear">
-        <div className="block block-rounded">
-          <div className="block-content p-0 overflow-hidden">
-            <Link className="img-link" to={`/engineer/${this.props.id}`}>
+      <div className='col-md-4 animated fadeIn' data-toggle='appear'>
+        <div className='block block-rounded'>
+          <div className='block-content p-0 overflow-hidden'>
+            <Link className='img-link' to={`/engineer/${this.props.id}`}>
               <img
-                className="img-fluid rounded-top"
-                width="512px"
-                height="512px"
+                className='img-fluid rounded-top'
+                width='512px'
+                height='512px'
                 src={`http://localhost:3000/engineer/${this.props.image}`}
                 alt={`Engineer ${this.props.name}`}
               />
             </Link>
           </div>
-          <div className="block-content bg-primary">
-            <h4 className="font-size-h5 mb-10 text-white">{this.props.name}</h4>
-            <p className="text-white">
+          <div className='block-content bg-primary'>
+            <h4 className='font-size-h5 mb-10 text-white'>{this.props.name}</h4>
+            <p className='text-white'>
               {this.props.position}
             </p>
           </div>
-          <div className="block-content bg-primary-dark">
+          <div className='block-content bg-primary-dark'>
             <div className='row'>
               <div className='col-12'>
                 <p className='text-white'>
-                  <i className="fa fa-fw fa-product-hunt mr-5" /> Project <b>{this.props.projects.length}</b>
+                  <i className='fa fa-fw fa-product-hunt mr-5' /> Project <b>{this.props.projects.length}</b>
                 </p>
               </div>
             </div>
             <div className='row'>
               <div className='col-12'>
                 <p className='text-white'>
-                  <i className="fa fa-star text-warning mr-5" /> Success Rate <b>{this.state.successRate}%</b>
+                  <i className='fa fa-star text-warning mr-5' /> Success Rate <b>{this.state.successRate}%</b>
                 </p>
               </div>
             </div>
           </div>
-          <div className="block-content bg-primary-darker">
-            <div className="row">
-              <div className="col-12">
+          <div className='block-content bg-primary-darker'>
+            <div className='row'>
+              <div className='col-12'>
                 <p className='text-white'>
-                  <i className="fa fa-fw fa-area-chart mr-5" /> Skills
+                  <i className='fa fa-fw fa-area-chart mr-5' /> Skills
                 </p>
                 {
                   (this.props.skills.length > 0)
-                  ? <ul>
+                    ? <ul>
                       {this.props.skills.map((skill, index) => {
                         return (
                           <li className='text-white' key={index}>{skill.name_skill}</li>
                         )
                       })}
                     </ul>
-                  : <ul><li className='text-white'>Empty</li></ul>
+                    : <ul><li className='text-white'>Empty</li></ul>
                 }
               </div>
             </div>

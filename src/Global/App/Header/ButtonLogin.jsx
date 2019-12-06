@@ -11,9 +11,9 @@ import { Link } from 'react-router-dom'
 class ButtonLogin extends Component {
   render () {
     return (
-      <div className="btn-group" role="group">
-        <Link to={this.props.to} className="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" aria-haspopup="true" aria-expanded="false">
-          <i className="fa fa-sign-in"/>
+      <div className='btn-group' role='group'>
+        <Link to={this.props.to} className='btn btn-rounded btn-dual-secondary' id='page-header-user-dropdown' aria-haspopup='true' aria-expanded='false'>
+          <i className='fa fa-sign-in' />
         </Link>
       </div>
     )

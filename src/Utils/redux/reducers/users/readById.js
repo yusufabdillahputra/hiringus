@@ -2,7 +2,7 @@ const initialState = {
   stateArray: [],
   isPending: false,
   isRejected: false,
-  isFulfilled: false,
+  isFulfilled: false
 }
 
 const readById = (state = initialState, action) => {

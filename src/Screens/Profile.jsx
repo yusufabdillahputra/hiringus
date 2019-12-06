@@ -36,27 +36,25 @@ const mapStateToProps = state => {
 }
 
 class Profile extends Component {
-
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
-      jwtExpired : false,
-      propsProfile : [],
-      propsModalPhoto : [],
-      isAuth : null
+      jwtExpired: false,
+      propsProfile: [],
+      propsModalPhoto: [],
+      isAuth: null
     }
 
     const jwt = localStorage.getItem('jwt')
     if (jwt !== null) {
-      const decode = JWT.decode(jwt, {complete: true})
+      const decode = JWT.decode(jwt, { complete: true })
       this.checkLogin(jwt, decode)
     } if (jwt === null) {
       this.setState({
-        isLogin : false
+        isLogin: false
       })
     }
-
   }
 
   async componentDidMount () {
@@ -74,7 +72,7 @@ class Profile extends Component {
    * @returns {Promise<void>}
    */
   async componentDidUpdate (prevProps, prevState) {
-    if(prevProps.data.Profile_postPhotoModal.isFulfilled !== this.props.data.Profile_postPhotoModal.isFulfilled) {
+    if (prevProps.data.Profile_postPhotoModal.isFulfilled !== this.props.data.Profile_postPhotoModal.isFulfilled) {
       await this.setState({
         propsModalPhoto: this.props.data.Profile_postPhotoModal.stateArray
       })
@@ -87,7 +85,7 @@ class Profile extends Component {
     const apiStatus = apiUsersToken.data.status
     if (apiStatus === 401 || apiStatus === 500) {
       await this.setState({
-        jwtExpired : true
+        jwtExpired: true
       })
     } else {
       const apiToken = apiUsersToken.data.payload.rows[0].remember_token
@@ -112,12 +110,12 @@ class Profile extends Component {
   render () {
     if (this.state.isAuth === false) {
       return (
-        <Redirect push to={'/'} />
+        <Redirect push to='/' />
       )
     }
     if (this.state.jwtExpired === true) {
       return (
-        <Redirect push to={'/login'} />
+        <Redirect push to='/login' />
       )
     }
     if (this.state.propsProfile.length > 0) {
@@ -127,7 +125,7 @@ class Profile extends Component {
         <AppWrapper>
           <div className='content content-full'>
             <div className='row'>
-              <div className="col-md-4 animated fadeIn">
+              <div className='col-md-4 animated fadeIn'>
                 <PhotoCard
                   id={profile.id_users}
                   name={profile.name_users}
@@ -137,36 +135,33 @@ class Profile extends Component {
                   key={profile.id_users}
                 />
               </div>
-              <div className="col-md-8 animated fadeIn">
+              <div className='col-md-8 animated fadeIn'>
                 <div className='row'>
                   <div className='col-12'>
                     <UsersDescription
                       dataProfile={profile}
                     />
                   </div>
-                  <div className='col-12'>
-
-                  </div>
+                  <div className='col-12' />
                 </div>
               </div>
             </div>
           </div>
           <PhotoModal
-            id={'modalProfilePhoto'}
-            color={'primary'}
-            title={'Change Profile Picture'}
-            btnDismissText={'Cancel'}
-            btnAgreeText={'Submit'}
+            id='modalProfilePhoto'
+            color='primary'
+            title='Change Profile Picture'
+            btnDismissText='Cancel'
+            btnAgreeText='Submit'
             photoCardData={photoCardData}
           />
         </AppWrapper>
       )
-    }
-    else {
+    } else {
       return (
         <LoadingPage
-          icon={'fa-spinner'}
-          message={'Please wait.....'}
+          icon='fa-spinner'
+          message='Please wait.....'
         />
       )
     }

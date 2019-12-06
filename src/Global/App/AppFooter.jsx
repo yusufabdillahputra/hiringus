@@ -31,7 +31,7 @@ class AppFooter extends Component {
                       <a
                         target='_blank'
                         href='https://reactjs.org/'
-                        rel="noopener noreferrer"
+                        rel='noopener noreferrer'
                       >
                         <img className='img-fluid' alt='React' width={100} src={IMGReact} />
                       </a>
@@ -40,7 +40,7 @@ class AppFooter extends Component {
                       <a
                         target='_blank'
                         href='https://redux.js.org/'
-                        rel="noopener noreferrer"
+                        rel='noopener noreferrer'
                       >
                         <img className='img-fluid' alt='Redux' width={100} src={IMGRedux} />
                       </a>
@@ -49,7 +49,7 @@ class AppFooter extends Component {
                       <a
                         target='_blank'
                         href='https://getbootstrap.com/'
-                        rel="noopener noreferrer"
+                        rel='noopener noreferrer'
                       >
                         <img className='img-fluid' alt='Bootstrap' width={100} src={IMGBootstrap} />
                       </a>
@@ -80,7 +80,7 @@ class AppFooter extends Component {
                             className='btn btn-lg btn-circle bg-white'
                             target='_blank'
                             href='https://github.com/yusufabdillahputra/hiringus'
-                            rel="noopener noreferrer"
+                            rel='noopener noreferrer'
                           >
                             <i className='fa fa-github' />
                           </a>

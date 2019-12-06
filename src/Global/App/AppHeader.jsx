@@ -28,7 +28,7 @@ class AppHeader extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (this.props.statusLogout !== prevProps.statusLogout) {
       this.setState({
         auth: false
@@ -38,7 +38,7 @@ class AppHeader extends Component {
 
   async componentDidMount () {
     if (this.state.jwt !== null) {
-      const decode = JWT.decode(this.state.jwt, {complete: true})
+      const decode = JWT.decode(this.state.jwt, { complete: true })
       await this.getUsers(decode)
     } else {
       this.setState({
@@ -76,7 +76,7 @@ class AppHeader extends Component {
               </Link>
             </div>
           </div>
-          <div className="content-header-section">
+          <div className='content-header-section'>
             {
               (this.state.auth === true)
                 ? <ButtonIsAuth
@@ -87,7 +87,7 @@ class AppHeader extends Component {
             {
               (this.props.statusLogout === false || this.state.jwt === null)
                 ? <ButtonLogin
-                  to={'/login'}
+                  to='/login'
                 />
                 : null
             }
