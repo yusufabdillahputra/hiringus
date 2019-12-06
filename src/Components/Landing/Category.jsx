@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react'
-import { Formik, Form, Field } from 'formik'
+//import { Formik, Form, Field } from 'formik'
 
 /**
 * Redux Actions
@@ -14,7 +14,7 @@ import { Formik, Form, Field } from 'formik'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { postCategory } from '../../Utils/redux/actions/components/landing/postCategory'
-import LoadingComponent from '../../Global/Template/LoadingComponent'
+//import LoadingComponent from '../../Global/Template/LoadingComponent'
 
 const mapStateToProps = dispatch => {
   return bindActionCreators({ postCategory }, dispatch)
