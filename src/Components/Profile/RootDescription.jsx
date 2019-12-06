@@ -1,6 +1,6 @@
 /**
  * Date : 06/12/2019
- * Time : 18:43
+ * Time : 23:44
  * @author Yusuf Abdillah Putra <yusufabdillahputra@gmail.com>
  * @license ISC
  */
@@ -10,8 +10,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { put } from '../../Utils/axios'
 import BootstrapAlert from '../../Global/Alerts/BootstrapAlert'
 
-class UsersDescription extends Component {
-
+class RootDescription extends Component {
   constructor (props) {
     super(props);
 
@@ -24,32 +23,17 @@ class UsersDescription extends Component {
   }
 
   initialValues = {
-    name_users: this.props.dataProfile.name_users,
-    username_users: this.props.dataProfile.username_users,
-    telp_users : this.props.dataProfile.telp_users,
-    email_users : this.props.dataProfile.email_users,
-    updated_by : this.props.dataProfile.id_users
-  }
-
-  validateHandler = values => {
-    const errors = {};
-    if (!values.name_users) {
-      errors.name_users = 'Name cannot be empty'
-    }
-    if (!values.username_users) {
-      errors.username_users = 'Username cannot be empty'
-    }
-    if (!values.email_users) {
-      errors.email_users = 'Email cannot be empty'
-    }
-    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email_users)) {
-      errors.email = 'Invalid email address'
-    }
-    return errors;
+    description_root: this.props.profile.description_root,
+    position_users: this.props.profile.position_users,
+    address_root : this.props.profile.address_root,
+    city_root : this.props.profile.city_root,
+    province_root : this.props.profile.province_root,
+    nation_root : this.props.profile.nation_root,
+    updated_by : this.props.profile.id_users
   }
 
   onSubmitHandler = async (values, {setSubmitting}) => {
-    const putData = await put(`/users/id/${values.updated_by}`, values)
+    const putData = await put(`/users/root/id/${values.updated_by}`, values)
     if (putData.data.payload.code === "23505") {
       await this.setState({
         alert: true,
@@ -98,12 +82,11 @@ class UsersDescription extends Component {
         <div className='block block-rounded'>
           <div className='block-header border-bottom bg-primary'>
             <h1 className='block-title text-white'>
-              <i className={'si si-user'}/> Users Information
+              <i className={'si si-pin'}/> Role Information
             </h1>
           </div>
           <Formik
             initialValues={this.initialValues}
-            validate={this.validateHandler}
             onSubmit={this.onSubmitHandler}
           >
             {
@@ -113,49 +96,68 @@ class UsersDescription extends Component {
 
                     <div className="form-group row">
                       <div className="col-12">
-                        <label>Name</label>
+                        <label>Description</label>
+                        <Field
+                          className='form-control'
+                          component='textarea'
+                          name='description_root'
+                          placeholder='Enter description...'
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-12">
+                        <label>Headline</label>
                         <Field
                           className='form-control'
                           type='text'
-                          name='name_users'
-                          placeholder='Enter name...'
+                          name='position_users'
+                          placeholder='Enter headline...'
                         />
-                        <ErrorMessage name="name_users" className='animated fadeInDown text-danger mt-1' component="div" />
                       </div>
                     </div>
                     <div className="form-group row">
                       <div className="col-12">
-                        <label>Username</label>
+                        <label>Address</label>
+                        <Field
+                          className='form-control'
+                          component='textarea'
+                          name='address_root'
+                          placeholder='Enter address...'
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-12">
+                        <label>City</label>
                         <Field
                           className='form-control'
                           type='text'
-                          name='username_users'
-                          placeholder='Enter username...'
-                        />
-                        <ErrorMessage name="username_users" className='animated fadeInDown text-danger mt-1' component="div" />
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <div className="col-12">
-                        <label>Telphone</label>
-                        <Field
-                          className='form-control'
-                          type='number'
-                          name='telp_users'
-                          placeholder='Enter telphone number...'
+                          name='city_root'
+                          placeholder='Enter city...'
                         />
                       </div>
                     </div>
                     <div className="form-group row">
                       <div className="col-12">
-                        <label>Email</label>
+                        <label>Province</label>
                         <Field
                           className='form-control'
-                          type='email'
-                          name='email_users'
-                          placeholder='Enter email...'
+                          type='text'
+                          name='province_root'
+                          placeholder='Enter province...'
                         />
-                        <ErrorMessage name="email_users" className='animated fadeInDown text-danger mt-1' component="div" />
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className="col-12">
+                        <label>Nation</label>
+                        <Field
+                          className='form-control'
+                          type='text'
+                          name='nation_root'
+                          placeholder='Enter nation...'
+                        />
                       </div>
                     </div>
                   </div>
@@ -178,4 +180,4 @@ class UsersDescription extends Component {
   }
 }
 
-export default UsersDescription
+export default RootDescription

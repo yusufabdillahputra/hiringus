@@ -28,6 +28,7 @@ import PhotoCard from '../Components/Profile/PhotoCard'
 import LoadingPage from '../Global/Template/LoadingPage'
 import PhotoModal from '../Components/Profile/PhotoModal'
 import UsersDescription from '../Components/Profile/UsersDescription'
+import RoleDescription from '../Components/Profile/RoleDescription'
 
 const mapStateToProps = state => {
   return {
@@ -40,6 +41,7 @@ class Profile extends Component {
     super(props)
 
     this.state = {
+      jwtStatus : true,
       jwtExpired: false,
       propsProfile: [],
       propsModalPhoto: [],
@@ -103,8 +105,15 @@ class Profile extends Component {
   }
 
   async setPropsProfile () {
-    const profile = await this.props.dispatch(readById())
-    return profile.value.data.payload.rows
+    const jwt = localStorage.getItem('jwt')
+    if (jwt !== null) {
+      const profile = await this.props.dispatch(readById())
+      return profile.value.data.payload.rows
+    } else {
+      this.setState({
+        jwtStatus: false
+      })
+    }
   }
 
   render () {
@@ -113,7 +122,7 @@ class Profile extends Component {
         <Redirect push to='/' />
       )
     }
-    if (this.state.jwtExpired === true) {
+    if (this.state.jwtExpired === true || this.state.jwtStatus === false) {
       return (
         <Redirect push to='/login' />
       )
@@ -142,7 +151,12 @@ class Profile extends Component {
                       dataProfile={profile}
                     />
                   </div>
-                  <div className='col-12' />
+                  <div className='col-12'>
+                    <RoleDescription
+                      role={profile.role_users}
+                      data={profile}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

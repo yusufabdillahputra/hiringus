@@ -48,7 +48,10 @@ class PhotoCard extends Component {
   render () {
     return (
       <div className="block block-rounded">
-        <div className="block-content p-0 overflow-hidden">
+        <div className="block-content p-0 overflow-hidden ribbon ribbon-bookmark ribbon-warning">
+          <div className="ribbon-box">
+            <i className="si si-badge" /> {this.props.role}
+          </div>
           <a href="#modalProfilePhoto" data-toggle="modal" onClick={this.modalHandler} className="img-link img-fluid">
             <img
               className="img-fluid rounded-top"
