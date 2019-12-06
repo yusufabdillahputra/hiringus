@@ -48,6 +48,7 @@ class Login extends Component {
     }
 
     this.state = {
+      jwtExpired: false,
       isAuth : false,
       alert : false,
       alertTitle : null,
@@ -60,16 +61,36 @@ class Login extends Component {
   async checkLogin (jwt, decode) {
     const idUsers = decode.payload.id_users
     const apiUsersToken = await get(`/users/id/${idUsers}`)
-    const apiToken = apiUsersToken.data.payload.rows[0].remember_token
-    if (jwt === apiToken) {
-      this.setState({
-        isAuth: true
+    const apiStatus = apiUsersToken.data.status
+    if (apiStatus === 401 || apiStatus === 500) {
+      await this.setState({
+        jwtExpired : true,
+        alert: true,
+        alertTitle : 'Token Expired',
+        alertColor : 'danger',
+        alertMessage : 'Please login again',
       })
-    }
-    if (jwt !== apiToken) {
-      this.setState({
-        isAuth: false
-      })
+      setTimeout(() => {
+        this.setState({
+          alert : false,
+          alertTitle : null,
+          alertColor : null,
+          alertMessage : null,
+        })
+      }, 4000)
+    } else {
+      const apiToken = apiUsersToken.data.payload.rows[0].remember_token
+      if (jwt === apiToken) {
+        this.setState({
+          jwtExpired : false,
+          isAuth: true
+        })
+      }
+      if (jwt !== apiToken) {
+        this.setState({
+          isAuth: false
+        })
+      }
     }
   }
 
@@ -154,7 +175,7 @@ class Login extends Component {
                                   Login
                                 </p>
                                 <p style={styleCss.subTitle}>
-                                  Please login with your personal information by username and password <i className='si si-bell text-warning'></i>
+                                  Please login with your personal information by username and password <i className='si si-bell text-warning' />
                                 </p>
                                 <p style={styleCss.subTitle}>
                                   Dont't have an account ? <Link to='/signup'><u>Join Now</u></Link>

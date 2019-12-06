@@ -12,7 +12,7 @@ class LoadingComponent extends Component {
     return (
       <div className='content content-full overflow-hidden'>
         <h1 className='text-center text-primary'>
-          <i className={`fa fa-5x fa-spin ${this.props.icon}`} />
+          <i className={`fa fa-${this.props.sizeIcon}x fa-spin ${this.props.icon}`} />
         </h1>
         <h2 className='text-center text-primary-dark'>
           {this.props.message}

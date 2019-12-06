@@ -1,9 +1,16 @@
 import { combineReducers } from 'redux'
 
+/**
+ * Api
+ */
 import Users_readAllProjectSkillEngineer from './users/readAllProjectSkillEngineer'
+import Users_readById from './users/readById'
+import Profile_postPhotoModal from './components/profile/postPhotoModal'
 
 export default combineReducers({
-  Users_readAllProjectSkillEngineer
+  Users_readAllProjectSkillEngineer,
+  Users_readById,
+  Profile_postPhotoModal
 })
 
 

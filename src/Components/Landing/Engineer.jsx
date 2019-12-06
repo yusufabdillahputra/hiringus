@@ -40,8 +40,8 @@ class Engineer extends Component {
                     return <EngineerCard
                       id={content.engineer.id_engineer}
                       name={content.engineer.name_users}
-                      image={content.engineer.photo_engineer}
-                      focus={content.engineer.focus_engineer}
+                      image={content.engineer.photo_users}
+                      position={content.engineer.position_users}
                       projects={content.projects}
                       skills={content.skills}
                       key={index}
@@ -50,6 +50,7 @@ class Engineer extends Component {
                   : <LoadingComponent
                     icon={'fa-spinner'}
                     message={'Please wait.....'}
+                    sizeIcon={4}
                   />
               }
             </div>

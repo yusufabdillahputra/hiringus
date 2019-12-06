@@ -24,10 +24,19 @@ class Category extends Component {
               <div className='block block-rounded'>
                 <div className='block block-header border-bottom'>
                   <h1 className='block-title'>
-                    Feel's lost ? you can set filter by this category <i className='fa fa-smile-o'></i>
+                    Feel's lost ? you can set filter by this category <i className='fa fa-smile-o' />
                   </h1>
                 </div>
                 <div className='block-content'>
+                  <div className='form-group row'>
+                    <div className='col-md-12'>
+                      <select className='form-control form-control-lg' name='filterBy'>
+                        <option>Filter by</option>
+                        <option value='skill_users'>Skill</option>
+                        <option value='name_users'>Name</option>
+                      </select>
+                    </div>
+                  </div>
                   <div className='form-group row'>
                     <div className='col-12'>
                       <div className='input-group'>
@@ -43,16 +52,6 @@ class Category extends Component {
                           </button>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className='form-group row'>
-                    <div className='col-md-12'>
-                      <select className='form-control form-control-lg' name='filterBy'>
-                        <option value='0'>Filter by</option>
-                        <option value='1'>Skill</option>
-                        <option value='2'>Name</option>
-                        <option value='3'>Level</option>
-                      </select>
                     </div>
                   </div>
                 </div>

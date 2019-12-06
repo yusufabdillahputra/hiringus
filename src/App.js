@@ -7,6 +7,7 @@
 
 
 import React, { Component } from 'react'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -25,6 +26,7 @@ import store from './Utils/redux/store'
 import Landing from './Screens/Landing'
 import Login from './Screens/Login'
 import Register from './Screens/Register'
+import Profile from './Screens/Profile'
 
 class App extends Component {
 
@@ -45,6 +47,10 @@ class App extends Component {
               exact
               path='/'
               component={Landing}
+            />
+            <Route
+              path='/profile'
+              component={Profile}
             />
           </Switch>
         </Router>

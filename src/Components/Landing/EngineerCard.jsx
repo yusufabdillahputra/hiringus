@@ -26,9 +26,14 @@ class EngineerCard extends Component {
   }
 
   formulaSuccessRate (projects) {
+    const projectOffer = []
     const projectDone = []
     const projectAccept = []
-    projects.map((project, index) => {
+    // eslint-disable-next-line array-callback-return
+    projects.map(project => {
+      if (project.status_project_engineer === 0) {
+        projectOffer.push(project.id_project_engineer)
+      }
       if (project.status_project_engineer === 1) {
         projectAccept.push(project.id_project_engineer)
       }
@@ -39,6 +44,7 @@ class EngineerCard extends Component {
     return {
       result : ((projectDone.length)/projectAccept.length)*100 || 0,
       projectAll : projects.length,
+      projectOffer: projectOffer.length,
       projectAccept: projectAccept.length,
       projectDone: projectDone.length
     }
@@ -62,7 +68,7 @@ class EngineerCard extends Component {
           <div className="block-content bg-primary">
             <h4 className="font-size-h5 mb-10 text-white">{this.props.name}</h4>
             <p className="text-white">
-              {this.props.focus}
+              {this.props.position}
             </p>
           </div>
           <div className="block-content bg-primary-dark">
