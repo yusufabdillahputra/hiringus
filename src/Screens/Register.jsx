@@ -235,8 +235,7 @@ class Register extends Component {
                                       name='name_users'
                                       placeholder='Enter name...'
                                     />
-                                    <ErrorMessage name="name_users" className='animated fadeInDown text-danger mt-1'
-                                                  component="div"/>
+                                    <ErrorMessage name="name_users" className='animated fadeInDown text-danger mt-1' component="div"/>
                                   </div>
                                 </div>
                                 <div className="form-group row">

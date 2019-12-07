@@ -33,7 +33,7 @@ import AppWrapper from '../Global/App/AppWrapper'
 import LoadingPage from '../Global/Template/LoadingPage'
 import LoadingComponent from '../Global/Template/LoadingComponent'
 
-const catchStateActionRedux = stateAction => {
+const mapStateToProps = stateAction => {
   return {
     data: stateAction
   }
@@ -130,4 +130,4 @@ class Landing extends Component {
   }
 }
 
-export default connect(catchStateActionRedux)(Landing)
+export default connect(mapStateToProps)(Landing)

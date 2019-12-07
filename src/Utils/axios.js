@@ -10,7 +10,7 @@ module.exports = {
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          jwt: localStorage.getItem('jwt') || null,
+          'jwt': localStorage.getItem('jwt'),
           'Content-Type': contentType
         },
         responseType: 'json'
@@ -19,7 +19,7 @@ module.exports = {
           resolve(result)
         })
         .catch(error => {
-          reject(error.response.status)
+          reject(error)
         })
     })
   },
@@ -31,7 +31,7 @@ module.exports = {
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          jwt: localStorage.getItem('jwt') || null,
+          'jwt': localStorage.getItem('jwt'),
           'Content-Type': contentType
         },
         data: body,
@@ -41,7 +41,7 @@ module.exports = {
           resolve(result)
         })
         .catch(error => {
-          reject(error.response.status)
+          reject(error)
         })
     })
   },
@@ -53,7 +53,7 @@ module.exports = {
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          jwt: localStorage.getItem('jwt'),
+          'jwt': localStorage.getItem('jwt'),
           'Content-Type': contentType
         },
         data: body,
@@ -63,7 +63,7 @@ module.exports = {
           resolve(result)
         })
         .catch(error => {
-          reject(error.response.status)
+          reject(error)
         })
     })
   },
@@ -85,7 +85,7 @@ module.exports = {
           resolve(result)
         })
         .catch(error => {
-          reject(error.response.status)
+          reject(error)
         })
     })
   }

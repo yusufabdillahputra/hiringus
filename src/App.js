@@ -26,6 +26,8 @@ import Landing from './Screens/Landing'
 import Login from './Screens/Login'
 import Register from './Screens/Register'
 import Profile from './Screens/Profile'
+import Company from './Screens/Company'
+import FormCompany from './Screens/FormCompany'
 
 class App extends Component {
   render () {
@@ -34,10 +36,12 @@ class App extends Component {
         <Router>
           <Switch>
             <Route
+              exact
               path='/login'
               component={Login}
             />
             <Route
+              exact
               path='/signup'
               component={Register}
             />
@@ -47,8 +51,19 @@ class App extends Component {
               component={Landing}
             />
             <Route
+              exact
               path='/profile'
               component={Profile}
+            />
+            <Route
+              exact
+              path='/company'
+              component={Company}
+            />
+            <Route
+              exact
+              path='/company/:id_company'
+              component={FormCompany}
             />
           </Switch>
         </Router>
