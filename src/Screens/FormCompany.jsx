@@ -17,6 +17,8 @@ import JWT from 'jsonwebtoken'
 import Unauthorized from '../Global/Error/Unauthorized'
 import FormCompanyCard from '../Components/FormCompany/FormCompanyCard'
 import PhotoModal from '../Components/FormCompany/PhotoModal'
+import LoadingComponent from '../Global/Template/LoadingComponent'
+import Description from '../Components/FormCompany/Description'
 
 const mapStateToProps = stateAction => {
   return {
@@ -72,7 +74,10 @@ class FormCompany extends Component {
                 />
               </div>
               <div className='col-md-8 animated fadeIn'>
-
+                <Description
+                  dataCompany={this.state.propsCompany}
+                  updatedBy={this.state.updatedBy}
+                />
               </div>
             </div>
           </div>
@@ -90,10 +95,11 @@ class FormCompany extends Component {
     } else {
       return (
         <AppWrapper>
-          <Unauthorized
-            message={`You don't have access to this feature, please login or register to get access`}
-            link={'/company'}
-            linkText={'back to company'}
+          <LoadingComponent
+            icon='fa-spinner'
+            message='Please wait.....'
+            sizeIcon={4}
+          />
           />
         </AppWrapper>
       )
