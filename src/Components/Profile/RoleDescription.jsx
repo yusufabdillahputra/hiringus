@@ -8,6 +8,7 @@
 import React, { Component } from 'react'
 import RootDescription from './RootDescription'
 import EngineerDescription from './EngineerDescription'
+import PartnerDescription from './PartnerDescription'
 
 class RoleDescription extends Component {
   render () {
@@ -27,9 +28,9 @@ class RoleDescription extends Component {
     }
     if (this.props.role === 3) {
       return (
-        <div>
-
-        </div>
+        <PartnerDescription
+          profile={this.props.data}
+        />
       )
     }
     else {

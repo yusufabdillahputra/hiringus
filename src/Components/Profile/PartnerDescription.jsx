@@ -1,6 +1,6 @@
 /**
- * Date : 06/12/2019
- * Time : 23:44
+ * Date : 07/12/2019
+ * Time : 20:25
  * @author Yusuf Abdillah Putra <yusufabdillahputra@gmail.com>
  * @license ISC
  */
@@ -8,32 +8,33 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { put } from '../../Utils/axios'
+import { formatDate } from '../../Utils/date'
 import BootstrapAlert from '../../Global/Alerts/BootstrapAlert'
 
-class RootDescription extends Component {
+class PartnerDescription extends Component {
   constructor (props) {
     super(props);
 
     this.state = {
-      alert : false,
-      alertTitle : null,
-      alertColor : null,
-      alertMessage : null,
+      alert: false,
+      alertTitle: null,
+      alertColor: null,
+      alertMessage: null,
     }
   }
 
   initialValues = {
-    description_root: this.props.profile.description_root  || '',
+    description_partner: this.props.profile.description_partner  || '',
     position_users: this.props.profile.position_users  || '',
-    address_root : this.props.profile.address_root  || '',
-    city_root : this.props.profile.city_root  || '',
-    province_root : this.props.profile.province_root  || '',
-    nation_root : this.props.profile.nation_root  || '',
+    address_partner : this.props.profile.address_partner  || '',
+    city_partner : this.props.profile.city_partner  || '',
+    province_partner : this.props.profile.province_partner  || '',
+    nation_partner : this.props.profile.nation_partner  || '',
     updated_by : this.props.profile.id_users
   }
 
   onSubmitHandler = async (values, {setSubmitting}) => {
-    const putData = await put(`/users/root/id/${values.updated_by}`, values)
+    const putData = await put(`/users/partner/id/${values.updated_by}`, values)
     if (putData.data.payload.code === "23505") {
       await this.setState({
         alert: true,
@@ -69,16 +70,10 @@ class RootDescription extends Component {
     setSubmitting(false)
   }
 
+
   render () {
     return (
       <div>
-        <BootstrapAlert
-          statusAlert={this.state.alert}
-          animated={'fadeIn'}
-          title={this.state.alertTitle}
-          message={this.state.alertMessage}
-          color={this.state.alertColor}
-        />
         <div className='block block-rounded'>
           <div className='block-header border-bottom bg-primary'>
             <h1 className='block-title text-white'>
@@ -93,14 +88,13 @@ class RootDescription extends Component {
               ({isSubmitting}) => (
                 <Form>
                   <div className='block-content block-content-full border-bottom'>
-
                     <div className="form-group row">
                       <div className="col-12">
                         <label>Description</label>
                         <Field
                           className='form-control'
                           component='textarea'
-                          name='description_root'
+                          name='description_partner'
                           placeholder='Enter description...'
                         />
                       </div>
@@ -122,7 +116,7 @@ class RootDescription extends Component {
                         <Field
                           className='form-control'
                           component='textarea'
-                          name='address_root'
+                          name='address_partner'
                           placeholder='Enter address...'
                         />
                       </div>
@@ -133,7 +127,7 @@ class RootDescription extends Component {
                         <Field
                           className='form-control'
                           type='text'
-                          name='city_root'
+                          name='city_partner'
                           placeholder='Enter city...'
                         />
                       </div>
@@ -144,7 +138,7 @@ class RootDescription extends Component {
                         <Field
                           className='form-control'
                           type='text'
-                          name='province_root'
+                          name='province_partner'
                           placeholder='Enter province...'
                         />
                       </div>
@@ -155,7 +149,7 @@ class RootDescription extends Component {
                         <Field
                           className='form-control'
                           type='text'
-                          name='nation_root'
+                          name='nation_partner'
                           placeholder='Enter nation...'
                         />
                       </div>
@@ -175,9 +169,16 @@ class RootDescription extends Component {
             }
           </Formik>
         </div>
+        <BootstrapAlert
+          statusAlert={this.state.alert}
+          animated={'fadeIn'}
+          title={this.state.alertTitle}
+          message={this.state.alertMessage}
+          color={this.state.alertColor}
+        />
       </div>
     )
   }
 }
 
-export default RootDescription
+export default PartnerDescription

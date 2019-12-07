@@ -5,14 +5,13 @@
  * @license ISC
  */
 
-import 'flatpickr/dist/themes/material_blue.css'
-
 import React, { Component } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { put } from '../../Utils/axios'
 import { formatDate } from '../../Utils/date'
 import BootstrapAlert from '../../Global/Alerts/BootstrapAlert'
 import Flatpickr from 'react-flatpickr'
+import 'flatpickr/dist/themes/material_blue.css'
 
 class EngineerDescription extends Component {
 
@@ -25,7 +24,6 @@ class EngineerDescription extends Component {
       alertTitle: null,
       alertColor: null,
       alertMessage: null,
-      date: null
     }
   }
 
@@ -33,12 +31,12 @@ class EngineerDescription extends Component {
     const dbo = this.props.profile.dbo_engineer || null
     if (dbo === null) {
       await this.setState({
-        date: new Date()
+        dboEngineer: new Date()
       })
     }
     else {
       await this.setState({
-        date: new Date(dbo)
+        dboEngineer: new Date(dbo)
       })
     }
   }
@@ -57,8 +55,7 @@ class EngineerDescription extends Component {
   }
 
   onSubmitHandler = async (values, {setSubmitting}) => {
-    // todo : date belum masuk ke db
-    values.dbo_engineer = await formatDate(this.state.date)
+    values.dbo_engineer = await formatDate(this.state.dboEngineer)
     const putData = await put(`/users/engineer/id/${values.updated_by}`, values)
     if (putData.data.payload.code === "23505") {
       await this.setState({
@@ -147,9 +144,9 @@ class EngineerDescription extends Component {
                         <label>Date of Birth</label>
                         <Flatpickr
                           className='form-control'
-                          value={this.state.date}
-                          onChange={date => {
-                            this.setState({
+                          value={this.state.dboEngineer}
+                          onChange={ async date => {
+                            await this.setState({
                               dboEngineer: date
                             })
                           }}
@@ -226,7 +223,7 @@ class EngineerDescription extends Component {
                     </div>
                     <div className="form-group row">
                       <div className="col-12">
-                        <label>Nation</label>
+                        <label>Country</label>
                         <Field
                           className='form-control'
                           type='text'

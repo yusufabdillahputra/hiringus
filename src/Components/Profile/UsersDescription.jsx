@@ -24,10 +24,10 @@ class UsersDescription extends Component {
   }
 
   initialValues = {
-    name_users: this.props.dataProfile.name_users,
-    username_users: this.props.dataProfile.username_users,
-    telp_users : this.props.dataProfile.telp_users,
-    email_users : this.props.dataProfile.email_users,
+    name_users: this.props.dataProfile.name_users || '',
+    username_users: this.props.dataProfile.username_users || '',
+    telp_users : this.props.dataProfile.telp_users || '',
+    email_users : this.props.dataProfile.email_users || '',
     updated_by : this.props.dataProfile.id_users
   }
 
@@ -88,13 +88,6 @@ class UsersDescription extends Component {
   render () {
     return (
       <div>
-        <BootstrapAlert
-          statusAlert={this.state.alert}
-          animated={'fadeIn'}
-          title={this.state.alertTitle}
-          message={this.state.alertMessage}
-          color={this.state.alertColor}
-        />
         <div className='block block-rounded'>
           <div className='block-header border-bottom bg-primary'>
             <h1 className='block-title text-white'>
@@ -173,6 +166,13 @@ class UsersDescription extends Component {
             }
           </Formik>
         </div>
+        <BootstrapAlert
+          statusAlert={this.state.alert}
+          animated={'fadeIn'}
+          title={this.state.alertTitle}
+          message={this.state.alertMessage}
+          color={this.state.alertColor}
+        />
       </div>
     )
   }
