@@ -96,9 +96,14 @@ class Company extends Component {
               <div className="block block-rounded">
                 <div className='block-header border-bottom'>
                   <h4 className="block-title">List Company</h4>
-                  <button className='btn btn-md btn-primary btn-rounded' type='button' data-target="#modalCreateCompany" data-toggle="modal" >
-                    <i className='si si-plus' /> Create Company
-                  </button>
+                  {
+                    (this.state.roleUsers !== 2)
+                      ? <button className='btn btn-md btn-primary btn-rounded' type='button'
+                                data-target="#modalCreateCompany" data-toggle="modal">
+                        <i className='si si-plus'/> Create Company
+                      </button>
+                      : null
+                  }
                 </div>
               </div>
               <div className='block block-transparent'>

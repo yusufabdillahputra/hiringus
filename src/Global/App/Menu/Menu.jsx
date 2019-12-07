@@ -7,26 +7,24 @@
 
 import React, { Component } from 'react'
 import Root from './Root'
+import Partner from './Partner'
+import Engineer from './Engineer'
 
 class Menu extends Component {
   render () {
     if (this.props.roleUsers === 1) {
       return (
-        <Root/>
+        <Root />
       )
     }
     if (this.props.roleUsers === 2) {
       return (
-        <div>
-
-        </div>
+        <Engineer />
       )
     }
     if (this.props.roleUsers === 3) {
       return (
-        <div>
-
-        </div>
+        <Partner />
       )
     }
   }

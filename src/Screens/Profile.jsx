@@ -15,6 +15,7 @@ import { get } from '../Utils/axios'
  */
 import { connect } from 'react-redux'
 import { readById } from '../Utils/redux/actions/users/readById'
+import { readById as companyReadById } from '../Utils/redux/actions/company/readById'
 
 /**
  * Globals
@@ -29,6 +30,8 @@ import LoadingPage from '../Global/Template/LoadingPage'
 import PhotoModal from '../Components/Profile/PhotoModal'
 import UsersDescription from '../Components/Profile/UsersDescription'
 import RoleDescription from '../Components/Profile/RoleDescription'
+import CompanyCard from '../Components/Profile/CompanyCard'
+import FormCompanyCard from '../Components/FormCompany/FormCompanyCard'
 
 const mapStateToProps = state => {
   return {
@@ -41,18 +44,20 @@ class Profile extends Component {
     super(props)
 
     this.state = {
-      jwtStatus : true,
+      jwtStatus: true,
       jwtExpired: false,
       propsProfile: [],
+      propsCompany: [],
       propsModalPhoto: [],
       isAuth: null
     }
 
     const jwt = localStorage.getItem('jwt')
     if (jwt !== null) {
-      const decode = JWT.decode(jwt, { complete: true })
+      const decode = JWT.decode(jwt, {complete: true})
       this.checkLogin(jwt, decode)
-    } if (jwt === null) {
+    }
+    if (jwt === null) {
       this.setState({
         isLogin: false
       })
@@ -61,9 +66,17 @@ class Profile extends Component {
 
   async componentDidMount () {
     const propsProfile = await this.setPropsProfile()
-    await this.setState({
-      propsProfile: propsProfile
-    })
+    if (propsProfile[0].role_users === 3 && propsProfile[0].id_company !== 0) {
+      const propsCompany = await this.setPropsCompany(propsProfile[0].id_company)
+      await this.setState({
+        propsProfile: propsProfile,
+        propsCompany: propsCompany
+      })
+    } else {
+      await this.setState({
+        propsProfile: propsProfile
+      })
+    }
   }
 
   /**
@@ -116,15 +129,20 @@ class Profile extends Component {
     }
   }
 
+  async setPropsCompany (idCompany) {
+    const company = await this.props.dispatch(companyReadById(idCompany))
+    return company.value.data.payload.rows[0]
+  }
+
   render () {
     if (this.state.isAuth === false) {
       return (
-        <Redirect push to='/' />
+        <Redirect push to='/'/>
       )
     }
     if (this.state.jwtExpired === true || this.state.jwtStatus === false) {
       return (
-        <Redirect push to='/login' />
+        <Redirect push to='/login'/>
       )
     }
     if (this.state.propsProfile.length > 0) {
@@ -143,6 +161,16 @@ class Profile extends Component {
                   position={profile.position_users}
                   key={profile.id_users}
                 />
+                {
+                  (profile.id_company !== 0 && profile.role_users === 3)
+                    ? <CompanyCard
+                      id={this.state.propsCompany.id_company}
+                      name={this.state.propsCompany.name_company}
+                      photo={this.state.propsCompany.photo_company}
+                      verify={this.state.propsCompany.verify_company}
+                    />
+                    : null
+                }
               </div>
               <div className='col-md-8 animated fadeIn'>
                 <div className='row'>
