@@ -8,7 +8,6 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { put } from '../../Utils/axios'
-import { formatDate } from '../../Utils/date'
 import BootstrapAlert from '../../Global/Alerts/BootstrapAlert'
 
 class PartnerDescription extends Component {

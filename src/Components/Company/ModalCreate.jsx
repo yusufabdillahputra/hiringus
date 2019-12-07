@@ -8,8 +8,6 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { post } from '../../Utils/axios'
-import { Redirect } from 'react-router-dom'
-import LoadingPage from '../../Global/Template/LoadingPage'
 
 class ModalCreate extends Component {
 

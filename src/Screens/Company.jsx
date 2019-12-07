@@ -6,7 +6,7 @@
  */
 
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import JWT from 'jsonwebtoken'
 import AppWrapper from '../Global/App/AppWrapper'
 import LoadingPage from '../Global/Template/LoadingPage'
@@ -23,7 +23,6 @@ import { readAll } from '../Utils/redux/actions/company/readAll'
 import bgHeroCompany from '../Assets/Image/Background/bg_hero_company.jpg'
 import CompanyCard from '../Components/Company/CompanyCard'
 import ModalCreate from '../Components/Company/ModalCreate'
-import PhotoModal from '../Components/Profile/PhotoModal'
 
 const mapStateToProps = stateAction => {
   return {

@@ -1,45 +1,34 @@
 /**
- * Date : 06/12/2019
- * Time : 10:36
+ * Date : 08/12/2019
+ * Time : 03:55
  * @author Yusuf Abdillah Putra <yusufabdillahputra@gmail.com>
  * @license ISC
  */
 
 import React, { Component } from 'react'
-
 import { put } from '../../Utils/axios'
 
 class PhotoModal extends Component {
-
   constructor (props) {
     super(props);
 
     this.state = {
-      profilePicture: null,
-      photoCardData: null,
-    }
-  }
-
-  async componentDidUpdate (prevProps) {
-    if (prevProps.photoCardData !== this.props.photoCardData) {
-      await this.setState({
-        photoCardData: this.props.photoCardData
-      })
+      companyPicture : null
     }
   }
 
   submitHandler = async (event) => {
     event.preventDefault()
     const bodyFormData = await new FormData()
-    const idUsers = this.props.photoCardData.idUsers
-    const roleUsers = await this.props.photoCardData.roleUsers
-    await bodyFormData.set('updated_by', idUsers)
-    await bodyFormData.append('photo_users', this.state.profilePicture)
-    await this.putRequest(bodyFormData, roleUsers, idUsers)
+    const updatedBy = this.props.updatedBy
+    const idCompany = this.props.idCompany
+    await bodyFormData.set('updated_by', updatedBy)
+    await bodyFormData.append('photo_company', this.state.companyPicture)
+    await this.putRequest(bodyFormData, idCompany)
   }
 
-  async putRequest(bodyFormData, roleUsers, idUsers) {
-    const putData = await put(`/users/`+roleUsers+`/photo/`+idUsers, bodyFormData, 'multipart/form-data')
+  async putRequest(bodyFormData, idCompany) {
+    const putData = await put(`/company/photo/`+idCompany, bodyFormData, 'multipart/form-data')
     if (putData.data.status === 200) {
       await window.location.reload()
     }
@@ -47,7 +36,7 @@ class PhotoModal extends Component {
 
   onChange = async event => {
     await this.setState({
-      profilePicture: event.target.files[0]
+      companyPicture: event.target.files[0]
     })
   }
 
@@ -69,7 +58,7 @@ class PhotoModal extends Component {
                 <div className="block-content">
                   <div className="form-group row">
                     <div className="col-12">
-                      <label>Profile Picture</label>
+                      <label>Company Picture</label>
                       <input
                         autoFocus
                         className='form-control'
@@ -82,8 +71,7 @@ class PhotoModal extends Component {
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-alt-secondary"
-                        data-dismiss="modal">{this.props.btnDismissText}</button>
+                <button type="button" className="btn btn-alt-secondary" data-dismiss="modal">{this.props.btnDismissText}</button>
                 <button type='submit' className={`btn btn-alt-${this.props.color}`}>
                   {this.props.btnAgreeText} <i className="fa fa-check"></i>
                 </button>
