@@ -28,6 +28,9 @@ import Register from './Screens/Register'
 import Profile from './Screens/Profile'
 import Company from './Screens/Company'
 import FormCompany from './Screens/FormCompany'
+import FormEngineer from './Screens/FormEngineer'
+import Project from './Screens/Project'
+import FormProject from './Screens/FormProject'
 
 class App extends Component {
   render () {
@@ -62,8 +65,23 @@ class App extends Component {
             />
             <Route
               exact
+              path='/project'
+              component={Project}
+            />
+            <Route
+              exact
+              path='/project/:id_project'
+              component={FormProject}
+            />
+            <Route
+              exact
               path='/company/:id_company'
               component={FormCompany}
+            />
+            <Route
+              exact
+              path='/engineer/:id_engineer'
+              component={FormEngineer}
             />
           </Switch>
         </Router>

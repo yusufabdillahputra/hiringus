@@ -15,6 +15,9 @@ class Partner extends Component {
         <Link className='dropdown-item' to='/company'>
           <i className='fa fa-building-o mr-5'/> Company
         </Link>
+        <Link className='dropdown-item' to='/project'>
+          <i className='fa fa-briefcase mr-5'/> Project
+        </Link>
         <div className='dropdown-divider'/>
       </div>
     )

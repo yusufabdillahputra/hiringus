@@ -12,8 +12,8 @@ import AppWrapper from '../Global/App/AppWrapper'
  * Redux Actions
  */
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import { readById } from '../Utils/redux/actions/company/readById'
+
 import JWT from 'jsonwebtoken'
 import FormCompanyCard from '../Components/FormCompany/FormCompanyCard'
 import PhotoModal from '../Components/FormCompany/PhotoModal'

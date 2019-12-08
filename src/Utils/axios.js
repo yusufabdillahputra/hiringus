@@ -5,13 +5,16 @@ module.exports = {
 
   get: (url, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
+      axios.defaults.headers.common['jwt'] = localStorage.getItem('jwt')
       axios({
         method: 'get',
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          'jwt': localStorage.getItem('jwt'),
-          'Content-Type': contentType
+          common: {
+            'jwt': localStorage.getItem('jwt'),
+            'Content-Type': contentType
+          }
         },
         responseType: 'json'
       })
@@ -26,16 +29,18 @@ module.exports = {
 
   post: (url, body, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
+      axios.defaults.headers.common['jwt'] = localStorage.getItem('jwt')
       axios({
         method: 'post',
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          'jwt': localStorage.getItem('jwt'),
-          'Content-Type': contentType
+          common: {
+            'jwt': localStorage.getItem('jwt'),
+            'Content-Type': contentType
+          }
         },
-        data: body,
-        responseType: 'json'
+        data: body
       })
         .then(result => {
           resolve(result)
@@ -48,16 +53,18 @@ module.exports = {
 
   put: (url, body, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
+      axios.defaults.headers.common['jwt'] = localStorage.getItem('jwt')
       axios({
         method: 'put',
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          'jwt': localStorage.getItem('jwt'),
-          'Content-Type': contentType
+          common: {
+            'jwt': localStorage.getItem('jwt'),
+            'Content-Type': contentType
+          }
         },
-        data: body,
-        responseType: 'json'
+        data: body
       })
         .then(result => {
           resolve(result)
@@ -70,16 +77,18 @@ module.exports = {
 
   delete: (url, body, contentType = 'application/json') => {
     return new Promise((resolve, reject) => {
+      axios.defaults.headers.common['jwt'] = localStorage.getItem('jwt')
       axios({
         method: 'delete',
         baseURL: BASE_URL_HAPI,
         url: url,
         headers: {
-          jwt: localStorage.getItem('jwt') || null,
-          'Content-Type': contentType
+          common: {
+            'jwt': localStorage.getItem('jwt'),
+            'Content-Type': contentType
+          }
         },
-        data: body,
-        responseType: 'json'
+        data: body
       })
         .then(result => {
           resolve(result)

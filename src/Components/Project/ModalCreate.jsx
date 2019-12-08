@@ -8,6 +8,9 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { post } from '../../Utils/axios'
+import { formatDate } from '../../Utils/date'
+import Flatpickr from 'react-flatpickr'
+import 'flatpickr/dist/themes/material_blue.css'
 
 class ModalCreate extends Component {
 
@@ -15,31 +18,34 @@ class ModalCreate extends Component {
     super(props);
 
     this.state = {
-      createdBy : null
+      createdBy : null,
+      deadlineProject : null
     }
   }
 
   async componentDidMount () {
     await this.setState({
-      createdBy: this.props.createdBy
+      createdBy: this.props.createdBy,
+      deadlineProject: new Date()
     })
   }
 
   initialValues = {
-    name_company: '',
+    name_project: '',
     created_by: this.props.createdBy || ''
   }
 
   validateHandler = values => {
     const errors = {};
-    if (!values.name_company) {
-      errors.name_company = 'Name cannot be empty'
+    if (!values.name_project) {
+      errors.name_project = 'Name cannot be empty'
     }
     return errors;
   }
 
   onSubmitHandler = async (values, {setSubmitting}) => {
-    const responseApi = await post('/company', values)
+    values.deadline_project = await formatDate(this.state.deadlineProject)
+    const responseApi = await post('/project', values)
     if (responseApi.data.status === 200) {
       window.location.reload()
     }
@@ -71,14 +77,28 @@ class ModalCreate extends Component {
                       <div className="block-content">
                         <div className="form-group row">
                           <div className="col-12">
-                            <label>Company Name</label>
+                            <label>Project Name</label>
                             <Field
                               className='form-control'
                               type='text'
-                              name='name_company'
+                              name='name_project'
                               placeholder='Enter name...'
                             />
-                            <ErrorMessage name="name_company" className='animated fadeInDown text-danger mt-1' component="div"/>
+                            <ErrorMessage name="name_project" className='animated fadeInDown text-danger mt-1' component="div"/>
+                          </div>
+                        </div>
+                        <div className="form-group row">
+                          <div className="col-12">
+                            <label>Deadline</label>
+                            <Flatpickr
+                              className='form-control'
+                              value={this.state.deadlineProject}
+                              onChange={ async date => {
+                                await this.setState({
+                                  deadlineProject: date
+                                })
+                              }}
+                            />
                           </div>
                         </div>
                       </div>

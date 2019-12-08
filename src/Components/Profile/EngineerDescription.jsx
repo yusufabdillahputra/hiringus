@@ -116,7 +116,6 @@ class EngineerDescription extends Component {
               ({isSubmitting}) => (
                 <Form>
                   <div className='block-content block-content-full border-bottom'>
-
                     <div className="form-group row">
                       <div className="col-12">
                         <label>Description</label>
