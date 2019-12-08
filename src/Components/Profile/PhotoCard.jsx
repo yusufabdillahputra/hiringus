@@ -57,7 +57,7 @@ class PhotoCard extends Component {
               className="img-fluid rounded-top"
               width="512px"
               height="512px"
-              src={`http://localhost:3000/${this.props.role}/${this.props.image}`}
+              src={`http://54.144.101.230:3000/${this.props.role}/${this.props.image}`}
               alt={`${this.props.name}`}
             />
           </a>
