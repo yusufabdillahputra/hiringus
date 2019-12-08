@@ -48,7 +48,7 @@ class FormCompanyCard extends Component {
               className='img-fluid rounded-top'
               width='512px'
               height='512px'
-              src={`http://localhost:3000/company/${this.props.photo}`}
+              src={`http://54.144.101.230:3000/company/${this.props.photo}`}
               alt={`Company ${this.props.name}`}
             />
           </a>
