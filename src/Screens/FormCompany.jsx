@@ -20,6 +20,7 @@ import PhotoModal from '../Components/FormCompany/PhotoModal'
 import LoadingComponent from '../Global/Template/LoadingComponent'
 import Description from '../Components/FormCompany/Description'
 import Unauthorized from '../Global/Error/Unauthorized'
+import SetCompanyModal from '../Components/FormCompany/SetCompanyModal'
 
 const mapStateToProps = stateAction => {
   return {
@@ -91,12 +92,27 @@ class FormCompany extends Component {
                 </div>
                 <div className='col-md-8 animated fadeIn'>
                   <Description
+                    idUsers={this.state.updatedBy}
+                    roleUsers={this.state.roleUsers}
                     dataCompany={this.state.propsCompany}
                     updatedBy={this.state.updatedBy}
                   />
                 </div>
               </div>
             </div>
+            <SetCompanyModal
+              id='modalSetCompany'
+              color='primary'
+              title='Set Your Company ?'
+              btnDismissText='Cancel'
+              btnAgreeText='Yes'
+              verify={this.state.propsCompany.verify_company}
+              name={this.state.propsCompany.name_company}
+              photo={this.state.propsCompany.photo_company}
+              idUsers={this.state.updatedBy}
+              updatedBy={this.state.updatedBy}
+              idCompany={this.state.propsCompany.id_company}
+            />
             <PhotoModal
               id='modalCompanyPhoto'
               color='primary'

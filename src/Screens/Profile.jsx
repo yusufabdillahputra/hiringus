@@ -31,7 +31,6 @@ import PhotoModal from '../Components/Profile/PhotoModal'
 import UsersDescription from '../Components/Profile/UsersDescription'
 import RoleDescription from '../Components/Profile/RoleDescription'
 import CompanyCard from '../Components/Profile/CompanyCard'
-import FormCompanyCard from '../Components/FormCompany/FormCompanyCard'
 
 const mapStateToProps = state => {
   return {
@@ -66,12 +65,18 @@ class Profile extends Component {
 
   async componentDidMount () {
     const propsProfile = await this.setPropsProfile()
-    if (propsProfile[0].role_users === 3 && propsProfile[0].id_company !== 0) {
-      const propsCompany = await this.setPropsCompany(propsProfile[0].id_company)
-      await this.setState({
-        propsProfile: propsProfile,
-        propsCompany: propsCompany
-      })
+    if (propsProfile[0].role_users === 3) {
+      if (propsProfile[0].id_company > 0) {
+        const propsCompany = await this.setPropsCompany(propsProfile[0].id_company)
+        await this.setState({
+          propsProfile: propsProfile,
+          propsCompany: propsCompany
+        })
+      } else {
+        await this.setState({
+          propsProfile: propsProfile
+        })
+      }
     } else {
       await this.setState({
         propsProfile: propsProfile
@@ -162,7 +167,7 @@ class Profile extends Component {
                   key={profile.id_users}
                 />
                 {
-                  (profile.id_company !== 0 && profile.role_users === 3)
+                  (profile.id_company > 0 && profile.role_users === 3)
                     ? <CompanyCard
                       id={this.state.propsCompany.id_company}
                       name={this.state.propsCompany.name_company}

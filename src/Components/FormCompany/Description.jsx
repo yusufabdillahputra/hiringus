@@ -11,26 +11,51 @@ import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { put } from '../../Utils/axios'
 import { Link } from 'react-router-dom'
 
+/**
+ * Redux Actions
+ */
+import { connect } from 'react-redux'
+import { readById as Users_readById } from '../../Utils/redux/actions/users/readById'
+
+const mapStateToProps = state => {
+  return {
+    data: state
+  }
+}
+
 class Description extends Component {
 
   constructor (props) {
     super(props);
 
     this.state = {
-      alert : false,
-      alertTitle : null,
-      alertColor : null,
-      alertMessage : null,
+      propsIdCompany: null,
+      alert: false,
+      alertTitle: null,
+      alertColor: null,
+      alertMessage: null,
     }
+  }
+
+  async componentDidMount () {
+    const propsIdCompany = await this.setPropsIdCompany() || null
+    this.setState({
+      propsIdCompany: propsIdCompany[0].id_company || null
+    })
+  }
+
+  async setPropsIdCompany () {
+    const profile = await this.props.dispatch(Users_readById())
+    return profile.value.data.payload.rows
   }
 
   initialValues = {
     name_company: this.props.dataCompany.name_company || '',
     address_company: this.props.dataCompany.address_company || '',
-    city_company : this.props.dataCompany.city_company || '',
-    province_company : this.props.dataCompany.province_company || '',
-    nation_company : this.props.dataCompany.nation_company || '',
-    updated_by : this.props.updatedBy
+    city_company: this.props.dataCompany.city_company || '',
+    province_company: this.props.dataCompany.province_company || '',
+    nation_company: this.props.dataCompany.nation_company || '',
+    updated_by: this.props.updatedBy
   }
 
   validateHandler = values => {
@@ -76,7 +101,7 @@ class Description extends Component {
           <div className='block-header border-bottom bg-primary'>
             <h1 className='block-title text-white'>
               <Link to={'/company'} className='btn btn-alt-primary btn-md btn-rounded mr-3'>
-                <i className='fa fa-angle-left' />
+                <i className='fa fa-angle-left'/>
               </Link>
               <i className={'fa fa-building-o'}/> Company Information
             </h1>
@@ -99,7 +124,8 @@ class Description extends Component {
                           name='name_company'
                           placeholder='Enter name...'
                         />
-                        <ErrorMessage name="name_company" className='animated fadeInDown text-danger mt-1' component="div" />
+                        <ErrorMessage name="name_company" className='animated fadeInDown text-danger mt-1'
+                                      component="div"/>
                       </div>
                     </div>
                     <div className="form-group row">
@@ -149,10 +175,21 @@ class Description extends Component {
                   </div>
                   <div className='block-content block-content-full'>
                     <div className='row'>
-                      <div className='offset-8 col-4'>
-                        <button type='submit' disabled={isSubmitting} className='btn btn-primary btn-block'>
-                          <i className='fa fa-pencil' /> Submit
-                        </button>
+                      <div className='offset-8 col-4 btn-group'>
+                        {
+                          this.props.roleUsers === 3 && this.props.dataCompany.id_company !== this.state.propsIdCompany
+                            ? <button type='button' data-toggle='modal' data-target='#modalSetCompany' className='btn btn-success btn-block'>
+                              <i className='fa fa-check'/> Set Company
+                            </button>
+                            : null
+                        }
+                        {
+                          (this.props.roleUsers === 1 || this.props.dataCompany.id_company === this.state.propsIdCompany)
+                            ? <button type='submit' disabled={isSubmitting} className='btn btn-primary btn-block'>
+                              <i className='fa fa-pencil'/> Submit
+                            </button>
+                            : null
+                        }
                       </div>
                     </div>
                   </div>
@@ -166,4 +203,4 @@ class Description extends Component {
   }
 }
 
-export default Description
+export default connect(mapStateToProps)(Description)
