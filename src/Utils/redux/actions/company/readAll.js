@@ -4,7 +4,7 @@ export const readAll = (fieldName = null, fieldValue = null) => {
   if (fieldName !== null && fieldValue !== null) {
     return {
       type: 'READ_ALL_COMPANY',
-      payload: get(`/company?fn=${fieldName}&fv=${fieldValue}`)
+      payload: get(`/corp?fn=${fieldName}&fv=${fieldValue}`)
     }
   } else {
     return {
