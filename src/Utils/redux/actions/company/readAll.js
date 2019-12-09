@@ -9,7 +9,7 @@ export const readAll = (fieldName = null, fieldValue = null) => {
   } else {
     return {
       type: 'READ_ALL_COMPANY',
-      payload: get('/company')
+      payload: get('/corp')
     }
   }
 }
