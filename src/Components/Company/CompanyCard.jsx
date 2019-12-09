@@ -50,7 +50,7 @@ class CompanyCard extends Component {
                 className='img-fluid rounded-top'
                 width='512px'
                 height='512px'
-                src={`http://54.144.101.230:3000/corp/${this.props.photo}`}
+                src={`http://54.144.101.230:3000/company/${this.props.photo}`}
                 alt={`Company ${this.props.name}`}
               />
             </Link>
